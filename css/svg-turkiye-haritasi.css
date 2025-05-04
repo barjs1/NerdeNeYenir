@@ -1,0 +1,224 @@
+/* SVG Türkiye Haritası | CSS | MIT Lisans | dnomak.com */
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Türkiye Haritası */
+.svg-turkiye-haritasi {
+  width: 100vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 100px; /* Menü çakışmasını önlemek için */
+}
+.svg-turkiye-haritasi svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* İl İsimleri */
+.il-isimleri {
+  position: absolute;
+  z-index: 2;
+}
+.il-isimleri div {
+  font-family: 'Open Sans';
+  display: inline-block;
+  background: #1094F6;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+
+/* Harita Yolları */
+#svg-turkiye-haritasi path {
+  cursor: pointer;
+  fill: #222;
+}
+#svg-turkiye-haritasi path:hover {
+  fill: #1094F6;
+}
+#svg-turkiye-haritasi path.selected {
+  fill: #28a745 !important; /* Seçili il için vurgulu renk */
+}
+#guney-kibris {
+  pointer-events: none;
+}
+
+/* Başlık */
+.header-title {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 35px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  padding: 20px 20px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  color: black;
+  font-family: 'Open Sans', sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: none;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.navbar.scrolled {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+/* Logo */
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  max-width: 300px;
+  height: auto;
+}
+
+/* Navbar Linkleri */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+.nav-links li a {
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+.nav-links li a:hover {
+  color: #1094F6;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+  text-align: center;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.close:hover, .close:focus {
+  color: black;
+}
+
+/* Şehir Yemekleri */
+#cityFoods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+#cityFoods .food-item {
+  text-align: center;
+  width: 150px;
+}
+#cityFoods .food-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+#cityFoods .food-item h4 {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+/* Footer */
+.footer {
+  margin-top: 100px;
+  color: black;
+  font-size: 30px;
+  text-align: center;
+}
+
+/* Medya Sorguları */
+@media (max-width: 768px) {
+  .modal-content {
+    margin-top: 60%;
+    width: 90%;
+    max-height: 90vh;
+  }
+  #cityFoods .food-item {
+    width: 100px;
+  }
+ 
+  
+  .navbar {
+    flex-direction: column; /* Dikey hizalama */
+    align-items: center; /* Ortala */
+    padding: 10px 0; /* Daha az boşluk */
+  }
+  .navbar.scrolled {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+  }
+  .logo {
+    font-size: 10px; /* Küçültme */
+    margin-bottom: 10px; /* Logo ile menü arasına boşluk ekle */
+ 
+  }
+  
+  .nav-links li {
+    display: inline-block; /* Elemanları aynı satıra yerleştir */
+  }
+  .nav-links li a {
+    font-size: 0.9em;
+    
+  }
+  .nav-links {
+    display: flex; /* Yan yana dizilsin */
+    gap: 10px; /* Daha dar boşluk */
+    font-size: 10px;
+  }
+  }
