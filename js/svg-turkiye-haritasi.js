@@ -354,6 +354,8 @@ function svgturkiyeharitasi() {
   
       cityName.textContent = name;
       cityFoods.innerHTML = '';
+      showComments(id); // 🟢 yorumları veritabanından yükle
+
   
       // Yemek verilerini göster
       if (cityFoodsData[id]) {
@@ -418,7 +420,7 @@ function svgturkiyeharitasi() {
 // 🌟 BU KISIMI svgturkiyeharitasi() fonksiyonunun DIŞINA AL
 const cityComments = {};
 
-function addComment() {
+/* function addComment() {
   const commentInput = document.getElementById('commentInput');
   const ratingInput = document.getElementById('ratingInput');
   const cityName = document.getElementById('cityName').textContent;
@@ -440,7 +442,55 @@ function addComment() {
 
   commentInput.value = '';
   showComments(city);
+} */
+
+  async function addComment(city) {
+    const comment = document.getElementById("commentInput").value;
+    const rating = document.getElementById("ratingInput").value;
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+        alert("Yorum yapabilmek için önce giriş yapmalısınız.");
+        return;
+    }
+
+    const res = await fetch("php/yorumlar.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            city,
+            userId,
+            comment,
+            rating
+        })
+    });
+
+    const data = await res.json();
+    if (data.success) {
+        alert("Yorum başarıyla eklendi!");
+        getComments(city); // Güncellenmiş yorumları tekrar yükle
+    } else {
+        alert("Yorum eklenirken bir hata oluştu.");
+    }
 }
+
+async function getComments(city) {
+    const res = await fetch(`php/yorumlar.php?city=${encodeURIComponent(city)}`);
+    const comments = await res.json();
+
+    const container = document.getElementById("cityFoods");
+    container.innerHTML = "<h3>Yorumlar:</h3>";
+
+    comments.forEach((item) => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+            <strong>${item.username}</strong> (${item.rating}/5):<br>
+            <em>${item.comment}</em><hr>
+        `;
+        container.appendChild(div);
+    });
+}
+
 
 function showComments(city) {
   const list = document.getElementById('commentList');
@@ -457,7 +507,18 @@ function showComments(city) {
   } else {
     list.innerHTML += '<p>Henüz yorum yapılmamış.</p>';
   }
+
+  container.innerHTML = `
+  <span style="margin-right: 10px;">Hoş geldin, <strong>${username}</strong></span>
+  <button class="btn-auth" onclick="logout()">Çıkış Yap</button>
+`;
+container.innerHTML = `
+  <button class="btn-auth" onclick="window.location.href='login.html'">Giriş Yap</button>
+  <button class="btn-auth" onclick="window.location.href='register.html'">Kayıt Ol</button>
+`;
+
 }
+
 
 
 // Haritayı başlat

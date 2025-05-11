@@ -30,7 +30,46 @@
 
       </a>
       <ul class="nav-links">
-        <li><a href="#anasayfa">Anasayfa</a></li>
+       <!-- <div class="auth-buttons">
+        
+    <button class="btn-auth" onclick="window.location.href='login.html'">Giriş Yap</button>
+    <button class="btn-auth" onclick="window.location.href='register.html'">Kayıt Ol</button>
+  </div> -->
+
+  <div class="auth-buttons" id="authButtons">
+  <!-- JS ile dinamik olarak doldurulacak -->
+   <script>
+  function renderAuthButtons() {
+    const container = document.getElementById("authButtons");
+    const username = localStorage.getItem("username");
+
+    if (username) {
+      container.innerHTML = `
+        <span style="margin-right: 10px;">Hoş geldin, <strong>${username}</strong></span>
+        <button class="btn-auth" onclick="logout()">Çıkış Yap</button>
+      `;
+    } else {
+      container.innerHTML = `
+        <button class="btn-auth" onclick="window.location.href='login.html'">Giriş Yap</button>
+        <button class="btn-auth" onclick="window.location.href='register.html'">Kayıt Ol</button>
+      `;
+    }
+  }
+
+  function logout() {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("username");
+    alert("Başarıyla çıkış yapıldı.");
+    location.reload(); // Sayfayı yenile
+  }
+
+  document.addEventListener("DOMContentLoaded", renderAuthButtons);
+</script>
+
+</div>
+
+
+        
         <li><a href="#hakkinda">Hakkında</a></li>
         <li><a href="#iletisim">İletişim</a></li>
       </ul>
@@ -513,10 +552,57 @@
       }
     });
   </script>
+
+  <!-- GİRİŞ Modalı -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('loginModal')">&times;</span>
+    <h2>Giriş Yap</h2>
+    <input type="text" id="loginUsername" placeholder="Kullanıcı Adı" required>
+    <input type="password" id="loginPassword" placeholder="Şifre" required>
+    <button onclick="login()">Giriş Yap</button>
+    <p>Hesabınız yok mu? <a href="#" onclick="switchModal('loginModal','registerModal')">Kayıt Ol</a></p>
+  </div>
+</div>
+
+<!-- KAYIT Modalı -->
+<div id="registerModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal('registerModal')">&times;</span>
+    <h2>Kayıt Ol</h2>
+    <input type="text" id="registerUsername" placeholder="Kullanıcı Adı" required>
+    <input type="password" id="registerPassword" placeholder="Şifre" required>
+    <button onclick="register()">Kayıt Ol</button>
+    <p>Zaten bir hesabınız var mı? <a href="#" onclick="switchModal('registerModal','loginModal')">Giriş Yap</a></p>
+  </div>
+</div>
+
+
 </body>
 
 </html>
 <style>
+  .btn-auth {
+  background-color: #1094F6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-auth:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+.btn-auth:active {
+  transform: translateY(1px);
+}
+
   * {
     margin: 0;
     padding: 0;
@@ -579,10 +665,13 @@
 
   #hakkinda {
     background: #e9ecef;
+    font-size: x-large;
+    font-style: initial;
   }
 
   #iletisim {
     background: #dee2e6;
+    font-size: x-large;
   }
 
   h2 {
@@ -754,18 +843,28 @@
 
   <section id="hakkinda">
     <h2>Hakkında</h2>
-    <p>Bu proje, Türkiye haritası üzerinde illerin interaktif şekilde görüntülenmesini sağlar.</p>
+    <p>Nerde Ne Yenir, Türkiye'nin dört bir yanındaki illere özgü yöresel yemek kültürünü tanıtmayı amaçlayan interaktif ve eğitici bir web uygulamasıdır. Bu platform sayesinde kullanıcılar, Türkiye haritası üzerinde herhangi bir şehre tıklayarak o ile ait en meşhur geleneksel lezzetleri görsel destekli olarak keşfedebilir.
+
+Her ilin gastronomik mirasını öne çıkaran bu proje; kültürel çeşitliliğimizi, yerel mutfağımızın zenginliğini ve Anadolu’nun dört bir yanına dağılmış lezzet hazinelerini tanıtmayı hedefler. Adana kebabından Trabzon sütlacına, Gaziantep baklavasından Kayseri mantısına kadar birçok yöresel yemek, bu platformda özenle seçilmiş görsellerle birlikte sunulur.
+
+Bununla birlikte kullanıcılar, ziyaret ettikleri şehirler hakkındaki deneyimlerini ve tatlarını yorum yaparak paylaşabilir, diğer ziyaretçilerin puanlamalarını inceleyebilir ve harita üzerinden kolayca geri bildirim bırakabilir. Giriş yaparak daha kişiselleştirilmiş bir deneyim yaşayabilir, diledikleri şehir için değerlendirme yapabilirler.
+
+Bu site, yalnızca gastronomi meraklılarına değil; aynı zamanda seyahat planlayanlara, yerel mutfağı tanımak isteyen öğrencilere ve kültürel araştırmalar yapanlara da değerli bir kaynak sunar.
+
+Nerde Ne Yenir, "Lezzet Haritası" kavramını dijital ortama taşıyan kullanıcı dostu ve bilgi odaklı bir platformdur.</p>
   </section>
 
   <section id="iletisim">
     <h2>İletişim</h2>
     <p>Bize ulaşmak için: <a href="mailto:tolgabarisanli@gmail.com">tolgabarisanli@gmail.com</a></p>
+    <p>Bize ulaşmak için: <a href="mailto:talhayurtt07@gmail.com">talhayurtt07@gmail.com</a></p>
+    <p>Bize ulaşmak için: <a href="mailto:koraycelik0671@gmail.com">koraycelik0671@gmail.com</a></p>
   </section>
   <!-- Footer -->
   <footer class="footer bg-gray-900 py-4 text-center text-gray-500">
     <div class="container mx-auto">
-      <p>&copy; 2025 Tolga Barış Anlı. Tüm hakları saklıdır.</p>
-      <p>Geliştirici: Tolga Barış Anlı</p>
+      <p>&copy; 2025  Tüm hakları saklıdır.</p>
+      <p>Geliştirici: Tolga Barış Anlı , Koray Çelik , Talha Yurt</p>
 
   </footer>
 
@@ -833,3 +932,83 @@
 
 
 </script>
+<script>
+async function addComment() {
+  const city = document.getElementById('cityName').textContent;
+  const comment = document.getElementById('commentInput').value;
+  const rating = document.getElementById('ratingInput').value;
+  const userId = localStorage.getItem('userId');
+
+  if (!userId) {
+    alert("Yorum yapabilmek için giriş yapmalısınız.");
+    return;
+  }
+
+  if (!comment.trim()) {
+    alert("Yorum boş olamaz.");
+    return;
+  }
+
+  try {
+    const response = await fetch("php/yorumlar.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        city,
+        userId,
+        comment,
+        rating
+      })
+    });
+
+    const data = await response.json();
+    if (data.success) {
+      alert("Yorum eklendi!");
+      document.getElementById('commentInput').value = "";
+      // Burada yorumları yeniden yükleyebilirsin
+    } else {
+      alert("Yorum eklenemedi.");
+    }
+  } catch (error) {
+    console.error("Yorum gönderme hatası:", error);
+    alert("Sunucu hatası oluştu.");
+  }
+}
+</script>
+
+<script>
+async function showComments(city) {
+  try {
+    const res = await fetch(`php/yorumlar.php?city=${encodeURIComponent(city)}`);
+    const comments = await res.json();
+
+    const commentList = document.getElementById('commentList');
+    commentList.innerHTML = "<h4>Yorumlar</h4>"; // önce temizle ve başlığı yeniden ekle
+
+    if (comments.length === 0) {
+      commentList.innerHTML += "<p>Henüz yorum yok.</p>";
+      return;
+    }
+
+    comments.forEach(comment => {
+      const div = document.createElement('div');
+      div.innerHTML = `
+        <strong>${comment.username}</strong> (${comment.rating}/5) <br>
+        ${comment.comment} <br>
+        <small>${new Date(comment.created_at).toLocaleString()}</small>
+      `;
+      commentList.appendChild(div);
+    });
+
+  } catch (err) {
+    console.error("Yorumlar yüklenemedi:", err);
+  }
+  
+}
+
+
+</script>
+
+

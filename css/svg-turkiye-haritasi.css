@@ -220,6 +220,58 @@
     gap: 10px; /* Daha dar boşluk */
     font-size: 10px;
   }
- 
-  
+ .auth-buttons {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.btn-auth {
+  background-color: #1094F6; /* Haritadaki mavi ile uyumlu */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-auth:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-auth:active {
+  transform: translateY(1px);
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.btn-auth {
+  background-color: #1094F6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-auth:hover {
+  background-color: #0056b3;
+  transform: translateY(-1px);
+}
+
+
+
   }
